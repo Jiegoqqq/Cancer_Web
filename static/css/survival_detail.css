@@ -1,0 +1,23 @@
+/* 使用 flexbox 進行排列 */
+.input-row {
+    display: flex;
+    flex-direction: column; /* 切換為垂直排列 */
+    gap: 10px; /* 控制元素之間的間距 */
+    align-items: center; /* 垂直居中對齊 */
+    background-color: aqua;
+}
+
+/* 單個輸入框的樣式 */
+.input-field {
+    width: 120px; /* 控制輸入框的寬度 */
+}
+
+/* 按鈕的樣式 */
+.button {
+    padding: 8px;
+}
+
+/* 下拉式選單的樣式 */
+.select-field {
+    width: 120px; /* 控制下拉式選單的寬度 */
+}

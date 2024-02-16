@@ -1,0 +1,577 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Screener {% endblock %}
+{% block content %}
+<script type="text/javascript" src="{% static 'js/DE_screener.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/screener.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/enrichment.js' %}"></script>
+
+<script>csrf_token= "{{ csrf_token }}"</script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/all_page.css' %}">
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.tag-editor.css' %}"> -->
+
+<!-- views data to js -->
+<div id="homo_miRNA_list" data-json="{{ homo_miRNA_list|safe }}"></div><br>
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+
+<div id='search_table' class="my-container" style="width: 90%;" >
+    <div class="card "> 
+        <div class="card-header">
+        <h4 style="text-align:left"><b><i class="fas fa-user-cog"></i>  Search </b></h4> 
+        </div>  
+        <div class="card-body">
+            <br>
+                <div class="centered">
+                    <p style="font-weight: bold; font-size: 20px"> Search type </p>
+
+                </div>
+
+                <div  class="row justify-content-evenly">
+                    <div class="flex-container">
+                        <div class="flex-item">
+                            <input type="checkbox" id="GeneSelect" name="type" value="genes" checked> 
+                            <label for="GeneSelect" style="font-size: 25px">Gene</label>
+                        </div>
+                        <div class="flex-item">
+                            <input type="checkbox" id="IsoformsSelect" name="type" value="isoforms" disabled="disabled">
+                            <label for="IsoformsSelect" style="font-size: 25px">Isoform</label>
+                        </div>
+                    </div>
+        </div>
+    </div><br><br><hr>
+
+    <!-- cancer select -->
+    <div class="card-body">
+        <!-- <div class="centered">
+            <p style="font-weight: bold; font-size: 20px"> Select a Cancer </p><br>
+        </div> -->
+            
+            <table class="table" style="text-align: center;" >
+                <thead>
+                    <tr>
+                        <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                            Select a Cancer
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:0; display: block; margin: 0 auto;">
+                            <div class="input-group">
+                                
+                                <span class="input-group-addon" style="border-right:0;width:100%"><br>
+                                    <div id='primary_site_div'>
+                                        <select id='primary_select' style="width: 1000px; margin: 0 auto; display: block; text-align: center;" name="select_element">
+                                            <option></option>
+                                            <!-- Django 語法，可以去利用view.py中定義的變數 -->
+                                            {% for primary_project in primary_project_list %}
+                                                <option value="{{ primary_project.0 }}|{{ primary_project.1 }}">{{ primary_project.0 }} cancer</option>
+                                            {% endfor %}
+                                            
+                                        </select>
+                                    </div><br>
+                                </span>                              
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><br><br>
+    </div>
+
+    <!-- switch for survival analysis -->
+    <div class="card-body" style="background-color: #b1915a; color:#FFFFFF; text-align:center; height: 150px;">
+        <div class="form-group">
+            <label class="col-sm-4 control-label"></label><br><br>
+            <div class="col-sm-7">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="switch_survival" checked="True">
+                    <label class="form-check-label" for="switch_survival" style="font-size: 40px;">Survival Analysis</label>
+                </div>
+            </div>
+        </div><br><br>
+    </div><hr>
+
+    <!-- survival analysis options -->
+    <div class="survival_analysis">
+        <div class="card-body">
+            <!-- choose stage -->
+            <table class="table" style="text-align: center;" >
+                <!-- <table class="table" style='width: 100%; margin: 0 auto; '> -->
+                <thead>
+                    <tr>
+                        <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                            Select a stage
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:0; display: block; margin: 0 auto;">
+                            <div class="input-group">
+                                
+                                <span class="input-group-addon" style="border-right:0;width:100%"><br>
+                                    <div id='stage_div'>
+                                        <select id="stage_select" style="width: 1500px; margin: 0 auto; display: block; text-align: center;" name="stage_element">
+                                            <option value="stage i">stage 1</option>
+                                            <option value="stage ii">stage 2</option>
+                                            <option value="stage iii">stage 3</option>
+                                            <option value="stage iv">stage 4</option>
+                                            <option value="all stage">all stages</option>
+                                        </select>
+                                    </div><br>
+                                </span>                              
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><br><br>
+
+
+            <!-- choose percentile -->
+            <div class="flex-container">
+                <div class="flex-item">
+                    <table class="table" style='width: 95%; margin: 0 auto;'>
+                        <thead>
+                            <tr>
+                                <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                                    Input high and low percentile 
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:0;" style="display: block; margin: 0 auto;">
+                                    <div class="input-group" style="width: 100%;">
+                                        
+                                        <span class="input-group-addon" style="text-align: center;border-right:0;width:50%">
+                                            <span style="font-weight: bold">High percentile</span>
+                                            <hr style="width: 80%; color: black; height: 2px; background-color:#8B0000;" />
+                                            <input type="number" id="high_percentile" name="high_percentile" value="50" style="width: 80%; margin: 0 auto; display: block; text-align: center;"/>
+                                        </span>
+                                        <span class="input-group-addon" style="text-align: center;width:50%">
+                                            <span style="font-weight: bold">Low percentile</span>
+                                            <hr style="width: 80%; color: black; height: 2px; background-color:#8B0000;" />
+                                            <input type="number" id="low_percentile" name="low_percentile" value="50" style="width: 80%; margin: 0 auto; display: block; text-align: center;"/>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="flex-item">
+                    <table class="table" style='width: 95%; margin: 0 auto;'>
+                        <thead>
+                            <tr>
+                                <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                                    Input the threshold value of the p-value 
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:0;" style="display: block; margin: 0 auto;">
+                                    <div class="input-group" style="width: 100%;">
+                                        
+                                        <span class="input-group-addon" style="text-align: center; width:50%">
+                                            <span style="font-weight: bold">Correction</span>
+                                            <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                            <select style="width: 80%; margin: 0 auto; display: block; text-align: center; height: 29px; " name="Correction_sur" id="c_type_sur">
+                                                <option value="None">None</option>
+                                                <option value="FDR">FDR</option>
+                                                <option value="Bonferroni">Bonferroni</option>
+                                            </select>
+                                        </span>
+                                        <span class="input-group-addon" style="text-align: center; width:50%">
+                                            <span style="font-weight: bold">P-value </span>
+                                            <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                            <input type="number" id="p_value" name="p_value" value="0.5" step="0.5" style="width: 80%; margin: 0 auto; display: block; text-align: center;"/>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><br><br><hr>
+    </div>
+
+    <!-- switch for miRNA screener -->  
+    <div class="card-body" style="background-color: #b1915a; color:#FFFFFF; text-align:center; height: 150px;">
+        <div class="form-group">
+            <label class="col-sm-4 control-label"></label><br><br>
+            <div class="col-sm-7">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="switch_miRNA" checked="True">
+                    <label class="form-check-label" for="switch_miRNA" style="font-size: 40px;" >miRNA screener</label>
+                </div><br><br>
+            </div>
+        </div><br><br>
+    </div><hr>
+
+    <!-- miRNA screener -->
+    <div class="miRNA_screener">
+        <table class="table" >
+            <table class="table" style='width: 95%; margin: 0 auto; '>
+            <thead>
+                <tr>
+                    <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                        Input miRNA and will search its target genes
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding:0;">
+                        <div class="input-group">
+                            <!-- search -->
+                            <div style="width: 60%; margin: 0 auto; display: block; text-align: center;"><br><textarea id="miRNA_input_area" style='width: 95%; margin: 0 auto;'></textarea></div><br><br>
+                             <!-- 交集聯集差集 -->
+                            <div class='FormOption' id="set_operation_area" style="margin: 0 auto; text-align: center; display: none;"><br>
+                                <div class="form-group">
+                                    <div class="centered">
+                                        <p style="font-weight: bold; font-size: 20px">Whether you want to intersect or union the selected data  </p><br>
+                                    </div>
+                                    <div class="flex-container">
+                                        <div class="flex-item">
+                                            <input type="radio" id="miRNA_union" name="miRNA_set" value="union" checked> 
+                                            <label for="miRNA_union" >union </label>                                
+                                        </div>
+                                        <div class="flex-item">
+                                            <input type="radio" id="miRNA_intersection" name="miRNA_set" value="intersection" >
+                                            <label for="miRNA_intersection" >intersection </label>
+                                        </div>
+                                        <div class="flex-item">
+                                            <input type="radio" id="miRNA_difference1_2" name="miRNA_set" value="difference1_2" >
+                                            <label for="miRNA_difference1_2" >difference(first - second) </label>
+                                        </div>
+                                        <div class="flex-item">
+                                            <input type="radio" id="miRNA_difference2_1" name="miRNA_set" value="difference2_1" >
+                                            <label for="miRNA_difference2_1" >difference(second - first) </label>
+                                        </div>
+                                        <br><br>
+                                    </div>
+                                </div>
+                            </div><br><br><hr>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table><br><br>
+    </div>
+    <!-- switch for DE screener -->
+    <div class="card-body" style="background-color: #b1915a; color:#FFFFFF; text-align:center;  height: 150px;">
+        <div class="form-group">
+            <label class="col-sm-4 control-label"></label><br><br>
+            <div class="col-sm-7">
+                <div class="form-check form-switch" >
+                    <input class="form-check-input" type="checkbox" id="switch_DE" checked="True">
+                    <label class="form-check-label" for="switch_DE" style="font-size: 40px;" >DE screener</label>
+                </div><br><br>
+                
+            </div>
+        </div><br><br>
+    </div><hr>
+
+    <!-- DE screener -->
+    <div class="DE_screener">
+        <div class="form-group">
+            <div class="centered">
+                <p style="font-weight: bold; font-size: 20px">Search differentially expressed (DE) genes/[mRNA isoforms] between two conditions (cancer stages)  </p>
+            </div><br><hr style="width: 60%; margin: 0 auto; display: block; "><br>
+            <div class="centered">
+                <p style="font-weight: bold; font-size: 20px">Select two stages  </p><br>
+            </div><br>
+
+            <table class="table" style='width: 95%; margin: 0 auto;'>
+                <thead>
+                    <tr>
+                        <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                            Statistical Significance
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:0;" style="display: block; margin: 0 auto;">
+                            <div class="input-group" style="width: 100%;">
+                                
+                                <span class="input-group-addon" style="border-right:0; width:50%; text-align:center;">
+                                    <span style="font-weight: bold ">Condition2</span>
+                                    <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                    <div id='c2_div'>
+                                        <select id='condition2_pre' style="width: 70%" name="DE_filter_elements">
+                                            <option value="normal|TCGA-LIHC|50">Normal</option>
+                                            <option value="stage i|TCGA-LIHC|171">Stage i</option>
+                                        </select>
+                                    </div><br>
+                                </span>
+                                <span class="input-group-addon" style="border-right:0;width:50%; text-align:center;">
+                                    <span style="font-weight: bold">Condition1</span>
+                                    <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                    <div id='c1_div'>
+                                        <select id='condition1_pre' style='width: 70%' name="DE_filter_elements">
+                                            <option value="stage i|TCGA-LIHC|171">Stage i</option>
+                                            <option value="normal|TCGA-LIHC|50">Normal</option>
+                                        </select>
+                                    </div>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><br>
+
+            <div class="centered">
+                <button id="reverseButton" type="button" class="btn btn-outline-primary">Swap the two options</button>
+            </div>
+        </div><br><br><hr>
+    
+
+        <!-- area of Define differential expression  -->
+        <div class="form-group">
+            <div class="centered" style="font-weight: bold; font-size: 20px">
+                <p>Define differential expression </p>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item" >
+                    <table class="table" style='width: 95%; margin: 0 auto;'>
+                        <thead>
+                            <tr>
+                                <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                                    Fold Change of Average FPKM
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:0;" style="display: block; margin: 0 auto; ">
+                                    <div class="input-group">
+                                        
+                                        <span class="input-group-addon" style="border-right:0;width:34%; height: 70px;"><br>
+                                            Condition2 / Condition1
+                                        </span>
+                                        <span class="input-group-addon" style="border-right:0;width:33%"><br>
+                                            <select id="FC_select" style="height: 20px;width:80%" name="DE_filter_elements">
+                                                <option>≥</option>
+                                                <option>≤</option>
+                                                
+                                            </select>
+                                        </span>
+                                    
+                                        <span class="input-group-addon" style="border-right:0;width:33%"><br>
+                                            <input type="text" class="form-control" id='log2FC_input' name="DE_filter_elements" value="2" style="z-index:0;border-top-right-radius:0;  text-align:center; height: 25px;"><br><br>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex-item" >
+                    <table class="table" style='width: 95%; margin: 0 auto;'>
+                        <thead>
+                            <tr>
+                                <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                                    Statistical Significance
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:0;" style="display: block; margin: 0 auto;">
+                                    <div class="input-group" style="width: 100%;">
+                                        
+                                        <span class="input-group-addon" style="border-right:0;width:25%">
+                                            <span style="font-weight: bold">Test</span>
+                                            <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                            <select id="TEST_select" style="height: 20px;width:80%" name="DE_filter_elements" onchange="select_function()">
+                                                <option>KS test</option>
+                                                <option>T test</option>
+                                                <option selected>U test</option>
+                                            </select>
+                                        </span>
+                                        <span class="input-group-addon" style="width:25%">
+                                            <span style="font-weight: bold">Direction</span>
+                                            <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                            <select id="TESTstates_select" style="height: 20px;width:90%;" name="DE_filter_elements">
+                                                <option>Greater (Condition2 > Condition1)</option>
+                                                <option>Less (Condition2 < Condition1)</option>
+                                                <option style="display: none">Two sided (Condition 2 != Condition 1)</option>
+                                            </select>
+                                        </span>
+                                        <span class="input-group-addon" style="border-right:0;width:25%">
+                                            <span style="font-weight: bold">Correction</span>
+                                            <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                            <select id="cor_method" style="height: 20px;width:80%" name="DE_filter_elements">
+                                                <option>None</option>
+                                                <option>FDR</option>
+                                                <option>Bonferroni</option>
+                                            </select>
+                                        </span>
+                                        <span class="input-group-addon" style="width:25%">
+                                            <span style="font-weight: bold">q-value cutoff</span>
+                                            <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                            <input type="text" class="form-control" id='TEST_input' name="DE_filter_elements" value="0.5" style="border-top-right-radius:0;z-index:0;height:20px;width:80%"><br>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><br><br>
+    </div>
+    <!-- Search Bar -->
+    <div class="centered">
+        <button type ='button' value = 'search' id = "search_btn" class="btn btn-outline-primary">Search</button>
+    </div>
+    
+    <div id = "gap">
+    </div>
+    <br><br>
+
+</div>
+<br>
+
+<div id='Result_table' class="my-container" style="width: 100%;" >    
+    <div class="card "> 
+        <div class="card-header">
+        <h4 style="text-align:left"><b><i class="fas fa-user-cog"></i>  Result </b></h4> 
+        </div>  
+            <div width=100% align="center" id="output_div" style="display: none;">
+                <div style="width: 90%;">
+                    <br>
+                    <p style="font-size: xx-large; text-align: center;">Search Condition</p>
+                        <div>
+                            <table id="user_input" class="table table-bordered">
+                                <tbody id="user_input_survival_analysis" >
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Stage select </td>
+                                        <td id="stage_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">High percentile </td>
+                                        <td id="high_percent_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Low percentile </td>
+                                        <td id="low_percent_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Correction </td>
+                                        <td id="correction_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">P-value </td>
+                                        <td id="input_pvalue_td"></td>
+                                    </tr>
+                                </tbody>
+                                <tbody id="user_input_miRNA_screener" >
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Input miRNA</td>
+                                        <td id="selected_miRNA_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">miRNA set </td>
+                                        <td id="miRNA_set_td"></td>
+                                    </tr>
+                                </tbody>
+                                <tbody id="user_input_de_screener" >
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Condition2</td>
+                                        <td id="condition2_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Condition1</td>
+                                        <td id="condition1_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Fold Change of Average FPKM (Condition2 / Condition1)</td>
+                                        <td id="fold_change_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Test</td>
+                                        <td id="test_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Direction</td>
+                                        <td id="direction_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">Correction</td>
+                                        <td id="de_correction_td"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; font-size: 20px;">q-value cutoff</td>
+                                        <td id="q-value_td"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
+            <br><hr><br>
+            <div id="output_message" style="font-size: xx-large; text-align: center;"></div><br>
+            <div id = 'output'>
+                <table id="output_table" class="table table-bordered table-striped result_table" style="width: 100%;"></table>
+            </div>
+            <br>
+            <br>
+            <hr style="border: 3px solid black;"/><!--修改的樣式-->
+            <div id="enrichment_area">
+                <table class="table" style='width: 95%; margin: 0 auto;'>
+                    <thead>
+                        <tr>
+                            <th style="background-color: #265a88;color:#FFFFFF;border-color: #265a88;text-align:center;border-top-left-radius:4px;border-top-right-radius:4px;font-size: 14px;">
+                                Enrichment analysis
+                                <!-- <p style="font-size: 15px">(Perform the analysis with the results above)</p> -->
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:0;" style="display: block; margin: 0 auto;">
+                                <div class="input-group" style="width: 100%;">
+                                    
+                                    <span class="input-group-addon" style="border-right:0; width:50%; text-align:center;">
+                                        <span style="font-weight: bold ">Correction type</span>
+                                        <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                        <div class="col">
+                                            <select name="Correction_enrich" id="c_type_enrich" >
+                                                <option value="None">None</option>
+                                                <option value="FDR">FDR</option>
+                                                <option value="Bonferroni">Bonferroni</option>
+                                            </select>
+                                        </div><br>
+                                    </span>
+                                    <span class="input-group-addon" style="border-right:0;width:50%; text-align:center;">
+                                        <span style="font-weight: bold">p-value(cut-off)</span>
+                                        <hr style="width: 90%; color: black; height: 2px; background-color:#8B0000;" />
+                                        <div class="col">
+                                            <select name="p-value_enrich" id="p-value_enrich" >
+                                                <option value="0.05">0.05</option>
+                                                <option value="0.01">0.01</option>
+                                                <option value="0.001">0.001</option>
+                                            </select>
+                                        </div><br>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table><br>
+                <div style="text-align: center;">
+                    <button id="btn_cal" class="btn btn-outline-primary" >calculate</button>
+                </div><br>
+                <table id="relate_table" class="table table-striped" style="width:100%;"></table> 
+                <table id="comparison_table" class="table table-striped" style=" overflow-x: auto; white-space: nowrap;"></table> 
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

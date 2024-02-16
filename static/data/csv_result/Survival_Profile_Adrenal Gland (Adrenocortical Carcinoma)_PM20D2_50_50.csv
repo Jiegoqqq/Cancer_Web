@@ -1,0 +1,15 @@
+Query: PM20D2
+Primary site: Adrenal Gland (Adrenocortical Carcinoma)
+Low Percentile: 50
+High Percentile: 50
+Condition: stage i
+
+Patient,Days,Status,Expression,Group
+TCGA-OR-A5JI,2331.0,Alive,0.699255,Low
+TCGA-OR-A5L3,4628.0,Alive,0.35866,Low
+TCGA-OR-A5KT,2895.0,Alive,1.10374,Low
+TCGA-OR-A5JR,3688.0,Alive,1.14606,Low
+TCGA-OR-A5JE,2105.0,Dead,1.47823,High
+TCGA-OR-A5L5,1317.0,Alive,1.28904,High
+TCGA-OR-A5JL,2056.0,Alive,1.35463,High
+TCGA-PK-A5HA,1201.0,Alive,1.61648,High

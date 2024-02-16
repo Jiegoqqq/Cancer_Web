@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Survival analysis {% endblock %}
+{% block content %}
+<script>csrf_token= "{{ csrf_token }}"</script>
+
+<script type="text/javascript" src="/static/js/survival_analysis_main.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="../../static/css/survival_analysis.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/survival_analysis.css' %}"> -->
+
+<!-- transfer gene_list data to js (maybe this method need to be correct)-->
+<div id="data" style="display:none">{{gene_list}}</div>
+
+
+<div id="id_content">
+	<div id = "middle">
+		<div width=100% align="center">
+			<form class="form-horizontal SearchForm" style="border-top-left-radius:0;">
+				<br>
+				<div>
+
+                    <div class='FormOption' style="background-color: #265a88;">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <span style="font-weight: bold;color: #FFFFFF;">Show survival plot of the selected gene/transcript for the selected cancer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+					<div class='FormOption'>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-4 control-label">Input a gene/transcript name : </label>
+							<div class="col-sm-7">
+								<div class="input-group">
+									<select class="selectpicker" name="input_element" id="GT_select">
+                                        <option value="genes" data-title="genes" data-placeholder="gene symbol">Gene symbol</option>
+                                        <option value="isoforms" data-title="isoforms" data-placeholder="transcript name">Transcript name</option>
+                                    </select>
+									<!--<div id="radioBtn" class="input-group-btn">
+										<a class="btn btn-default btn-md active" style="background-image:none;height: 36px;border: 1px solid;" data-toggle="search_by" data-title="genes" data-placeholder="gene symbol">Gene</a>
+										<a class="btn btn-default btn-md notActive" style="background-image:none;height: 36px;border: 1px solid;" data-toggle="search_by" data-title="isoforms" data-placeholder="transcript name">Transcript</a>
+									</div>
+									<input type="text" id="search_by" name="input_element" style="display: none" value="genes">-->
+									<input type="text" id="GT_input" name="input_element" class="form-control" placeholder="gene symbol" style="position:initial;border:1px solid #245580;border-left:0">
+								</div>
+							</div>
+						</div>
+					</div><br>
+
+					<div class='FormOption'>
+						<div class="form-group">
+							<label class="col-sm-4 control-label">Select Cancer : </label>
+							
+							<div class="col-sm-7">
+								<div class="table-responsive">
+									<table class="table table-bordered table-hover text-center" id="primary_site_table">
+										<thead>
+											<tr>
+												<th class="text-center" style="width: 10%;background-color: #8B0000; color: #FFFFFF"></th>
+												<th class="text-center" style="width: 10%;background-color: #8B0000; color: #FFFFFF">Cancer</th>
+												<!-- <th class="text-center" style="width: 80%;background-color: #8B0000; color: #FFFFFF">Cancer stage</th> -->
+											</tr>
+										</thead>
+										<!-- <tbody> -->
+										{% for row in primary_project_list %}
+											{% with row.0|add:"|"|add:row.1 as primary_project %}
+												<tr>
+													<td style="vertical-align: middle;">
+														<label>
+															<input class="header" type="radio" name="primary_check_element" value="{{ primary_project }}" style="width: 20px;height: 20px;">
+														</label>
+													</td>
+													<td style="vertical-align: middle;">{{ row.0 }}</td>
+												</tr>
+											{% endwith %}
+										{% endfor %}
+										<!-- </tbody> -->
+									</table>
+								</div>
+							</div>
+						</div>
+					</div><br>
+					<div class='FormOption'>
+                        <div class="form-group">
+                        	<button type ='button' value = 'search' id = "send" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+				</div><br>
+			</form><br><br><br><br>     
+		</div>
+		<div id = 'output'>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

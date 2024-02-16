@@ -1,0 +1,452 @@
+.ui-autocomplete {
+    position: absolute;
+    top: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    left: 0;
+    z-index: 1000;
+    float: left;
+    display: none;
+    min-width: 160px;   
+    padding: 4px 0;
+    margin: 0 0 10px 25px;
+    list-style: none;
+    background-color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    padding-right: 20px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    max-height: 200px;
+}
+
+.ui-menu-item > a.ui-corner-all {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.ui-state-hover, .ui-state-active {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0088cc;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    background-image: none;
+}
+
+
+/* tables */
+
+.navbar-brand{
+    padding-right: 0px;
+
+}
+table.tablestyle {
+    font-family: verdana;font-size:100%;line-height: 25px;
+    background-color: #CDCDCD;
+    margin:10px 0pt 15px;
+    font-size: 12pt;
+    width: 100%;
+    text-align: middle; border: none;
+    border-radius: 10px;}
+
+table.tablestyle thead tr th {
+    background-color: #FFDAB9;
+    border: 1px solid #FFF;
+    font-size: 12pt;
+    padding: 4px;}
+
+
+table.tablestyle tbody td {
+    color: #3D3D3D;
+    padding: 4px;
+    background-color: #FFF;
+    vertical-align: center;
+    border: none;
+}
+/*title*/
+#title{background-color:#FFDAB9;font-weight:bold;font-size:12pt;text-align:center;}
+#title2{background-color:#ADD8E6;font-weight:bold;font-size:12pt;text-align:center;}
+
+
+/*fieldset*/
+
+fieldset.fieldset_style {
+    font-family: verdana;
+    border: 3px solid #DCDCDC;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+fieldset.fieldset_style legend {
+    background:#A1ADEC;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 32px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 0 1px #ddd;
+            box-shadow: 0 0 0 1px #ddd;
+    margin-left: 20px;
+}
+
+/*seach button*/
+button.search{
+    font-family: verdana;
+    font-size: 14pt;
+    border-radius: 10px;
+    background: #A1ADEC;
+    width:100px;
+    height:50px;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+.search:hover {
+    
+    background: #B6C0F1;
+
+}
+
+/*page*/
+.input1{text-align:center;line-height:200px;}
+.input2{text-align:center;line-height:200px;}
+.essential_genes{text-align:center;line-height:200px;}
+.double_pvalue_up{text-align:center;line-height:30px;}
+.double_pvalue_down{text-align:center;line-height:150px;}
+.footer{float: left;width: 100%;height: 50px;color: #999;font-size:14px; background-color:#FFFFFF;text-align: center;}
+
+/*link*/
+.main_nav ul {
+    text-align: left;
+    float: right;
+}
+
+.main_nav ul li {
+    display: inline;
+    cursor: pointer;
+}
+
+.main_nav ul li a {
+    height: 40px;
+    line-height: 40px;
+    padding-top: 20px;
+    padding-bottom: 2px;
+    padding-left: 18px;
+    padding-right: 20px;
+    font-size: 15px;
+    display: block;
+    color: #4d4d4d;
+    border-bottom: none;
+    /*background-color: rgba(247,246,242,1);*/
+    -webkit-transition: all .15s ease-in-out .1s;
+    transition: all .15s ease-in-out .1s;
+}
+
+.main_nav ul li div {
+    float: left;
+}
+
+.main_nav ul li div.active {
+    background-image: url(http://string-db.org/images/underline_grey_left.png),url(http://string-db.org/images/underline_grey_right.png),url(http://string-db.org/images/underline_grey_middle.png);
+    background-repeat: no-repeat,no-repeat,repeat-x;
+    background-position: bottom left,bottom right,bottom;
+}
+
+.main_nav ul li div:hover {
+    background-image: url(http://string-db.org/images/underline_blue_left.png),url(http://string-db.org/images/underline_blue_right.png),url(http://string-db.org/images/underline_blue_middle.png);
+    background-repeat: no-repeat,no-repeat,repeat-x;
+    background-position: bottom left,bottom right,bottom;
+}
+
+.main_nav ul li a:hover,.main_nav ul li a.hover {
+    background-color: rgba(247,246,242,0);
+    -webkit-transition: all .15s ease-in-out .1s;
+    transition: all .15s ease-in-out .1s;
+}
+
+.main_nav ul li a.active,.main_nav ul li a.active:hover {
+    background-color: rgba(247,246,242,0);
+    -webkit-transition: all .15s ease-in-out .1s;
+    transition: all .15s ease-in-out .1s;
+}
+
+/*div*/
+html,body {height: 100%; margin: 0;padding: 0;/*background-color:#F7F6F2;*/font-family: verdana;font-size:100%;line-height: 25px;color:#4d4d4d}
+#headermiddle{width:100%;margin-left:auto;margin-right:auto;background-color: #F7F6F2;}
+#middle{width:80%;min-height:27.5%;margin-left:auto;margin-right:auto;/*background-color: #F7F6F2;*/  /*border-right:1px Gainsboro  solid;border-left:1px Gainsboro solid;*/padding:1px;}/*overflow:auto; ¶W¥X­¶­±®É*//*min-height:95%ÀH­¶­±ÅÜ*/
+#divleft{width:14%;height:100%;float:left;background-color: #E6E6FA;}
+#divright{width:14%;height:100%;float:right;background-color: #E6E6FA;}
+#footermiddle{width:100%;margin-left:auto;margin-right:auto;background-color: #FFF;/* border-right:1px Gainsboro  solid;border-left:1px Gainsboro solid;*/}
+#divfooter{width:100%;height:50px;line-height:50px;text-align:center;color: #999;font-size:12px;background-color: #4d4d4d;position:relative;bottom:0px;z-index:0;}/*z-index:0; 下一層*/
+
+/*templates*//*https://yichen0831.wordpress.com/2013/08/19/html%E5%B0%87footer%E7%BD%AE%E5%BA%95%E7%9A%84%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8css/*/
+#id_wrapper {
+    /* 設定高度最小為100%, 如果內容區塊很多, 可以長大 */
+    min-height: 100%;
+     /*位置設為relative, 作為footer區塊位置的參考 */
+    /*position: relative;*/
+
+    width: 100%;
+    position: absolute;
+}
+
+#id_header {
+    /* 設定header的高度 */
+    height: 110px;
+    width: 100%;
+    /*position: fixed;*/
+    /*position: absolute;*/
+    /*z-index:2;*/
+}
+
+#id_content {
+    /* 留出header及footer區塊的空間 */
+    padding-top: 50px;
+    padding-bottom: 50px;
+    /*-webkit-box-shadow:inset 0 2px 0 rgba(255,255,255,.15), 0 2px 5px rgba(0,0,0,.075);
+            box-shadow:inset 0 2px 0 rgba(255,255,255,.15), 0 2px 5px rgba(0,0,0,.075);
+            border:1px solid transparent;*/
+}
+
+#id_footer {
+    /* 設定footer的高度 */
+    height: 50px;
+    /* 設定footer絕對位置在底部 */
+    /*position: fixed;*/
+    position: absolute;
+    bottom: 0;
+    /* 展開footer寬度 */
+    width: 100%;
+    line-height:50px;
+    text-align:center;
+    color: #999;
+    font-size:12px;
+    background-color: #222;
+    z-index:0;
+    -webkit-box-shadow:inset 0 2px 0 rgba(255,255,255,.15), 0 2px 5px rgba(0,0,0,.075);
+            box-shadow:inset 0 2px 0 rgba(255,255,255,.15), 0 2px 5px rgba(0,0,0,.075);
+            border:1px solid transparent;
+}
+
+.SearchForm{
+    border:1px solid #ddd;
+    border-radius: 4px;
+    background-color:#fcfcfc;
+    -webkit-box-shadow:5px 5px 5px 5px #ccc;
+            box-shadow:5px 5px 5px 5px #ccc;
+}
+.FormOption{
+    width:90%;
+    -webkit-box-shadow:inset 0 2px 0 rgba(255,255,255,.15), 0 2px 5px rgba(0,0,0,.075);
+            box-shadow:inset 0 2px 0 rgba(255,255,255,.15), 0 2px 5px rgba(0,0,0,.075);
+    border:1px solid #ddd;
+    border-radius: 4px;
+    background-color:#FFF;
+}
+.Filter_Setting_Form{
+    border:1px solid #ddd;
+    border-radius: 4px;
+    background-color:#fcfcfc;
+    -webkit-box-shadow:2px 2px 2px 2px #ccc;
+            box-shadow:2px 2px 2px 2px #ccc;
+}
+/*--------------------捲動表格----------------*/
+/*.table-scroll {
+    width: 90%;
+}
+.table-scroll thead {
+    width: 100%;
+}*/
+.table-scroll {
+    width: 325px;
+    overflow-x: auto;
+}
+/*.table-scroll thead, .table-scroll tbody, .table-scroll tr, .table-scroll td, .table-scroll th {
+    display: block;
+}
+.table-scroll tbody td, .table-scroll thead > tr> th {
+    float: left;
+    border-bottom-width: 0;
+}*/
+
+.div-scroll {
+    position:relative;
+    max-width:100%;
+    overflow-y:hidden;
+    overflow-x:auto;
+}
+
+/*--- DE genes DE isofoms radio*/
+#radioBtn .active{
+    /*border-color: red;*/
+}
+
+#radioBtn .notActive{
+    color: #3276b1;
+    background-color: #fff;
+
+}
+#radioBtn .notActive:hover, .notActive:focus, .notActive:active, .notActive.active, .open>.dropdown-toggle.notActive {
+    /*color: #fff;*/
+    /*background-color: #204d74;*/
+    /*border-color: #285e8e;*/
+}
+
+/* scroll bar */
+/* width */
+div::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+div::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 5px;
+}
+ 
+/* Handle */
+div::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+div::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+/*data tool bar*/
+.toolbar {
+    float:right
+}
+.toolbar2 {
+    float:left
+}
+
+/*D3.js cursor div*/
+div.tooltip_isoform_struture {   
+    position: absolute;         
+    text-align: center;         
+    width: 140px;                    
+    height: 34px;                   
+    padding: 2px;               
+    font: 12px verdana;      
+    background: #000000;        
+    border-radius: 4px;         
+    pointer-events: none;   
+    color: #FFFFFF;    
+}
+.tooltip_isoform_struture::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #000000 transparent transparent transparent;
+}
+
+/* Tooltip container */
+.tooltip2 {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip2 .tooltiptext2 {
+    visibility: hidden;
+    width: 400px;
+    background-color: #FFFFFF;
+    color: #000000;
+    text-align: center;
+    padding: 2px;
+    border-radius: 4px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 3;
+
+    border-color: #000000 transparent transparent transparent;
+    opacity: 1;
+
+    top: 100%;
+    right: 50%;
+    border: 1px solid #CCC;
+
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip2:hover .tooltiptext2 {
+    visibility: visible;
+}
+
+
+.search1_td1{
+    background-color: #FFFFFF;
+}
+
+.search1_td2{
+    display: none;
+}
+/* ------------------------------------------------------------------- */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.centered {
+text-align: center;
+}
+
+.my-container {
+    width: 80%; /* 這裡的寬度可以根據需要進行調整 */
+    margin: 0 auto;
+    display: flex;
+  }
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+.checkbox-container {
+    display: flex;
+  }
+  .checkbox-container p {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .checkbox-container label {
+    flex: 1;
+    text-align: center;
+  }
+  .checkbox-container select {
+    flex: 1;
+    text-align: center;
+    width: 60%;
+  }
+.flex-container {
+    display: flex;
+    
+}
+
+.flex-item {
+    flex: 1;
+    text-align: center; /* 文字置中 */
+}
+

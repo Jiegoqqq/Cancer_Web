@@ -1,0 +1,25 @@
+.header {
+    font-size:80px;
+    padding: 10px;
+    color: white;
+    text-align:center;
+    line-height: 100px;
+    background-color: black;
+    width: 100%;
+    
+  }
+.footer {
+  font-size:15px;
+  padding: 10px;
+  color: black;
+  text-align:center;
+  line-height: 20px;
+  width: 100%; 
+}
+
+.add-background {
+  background-color: LightCyan !important;
+}
+.button-container {
+  text-align: right ;
+}

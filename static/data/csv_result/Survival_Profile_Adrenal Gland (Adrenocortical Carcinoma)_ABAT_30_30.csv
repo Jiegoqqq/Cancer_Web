@@ -1,0 +1,17 @@
+Query: ABAT
+Primary site: Adrenal Gland (Adrenocortical Carcinoma)
+Low Percentile: 30
+High Percentile: 30
+Condition: stage iv
+
+Patient,Days,Status,Expression,Group
+TCGA-OR-A5KY,391.0,Dead,3.10827,Low
+TCGA-OR-A5JB,551.0,Dead,0.494343,Low
+TCGA-P6-A5OG,383.0,Dead,0.338525,Low
+TCGA-OR-A5JY,552.0,Dead,0.139497,Low
+TCGA-OR-A5LJ,1105.0,Dead,0.369169,Low
+TCGA-OR-A5JA,922.0,Dead,25.686,High
+TCGA-OR-A5JK,1497.0,Alive,52.293,High
+TCGA-OR-A5LB,1204.0,Dead,12.3703,High
+TCGA-OR-A5KO,1414.0,Alive,32.865,High
+TCGA-OU-A5PI,1171.0,Alive,29.4257,High
